@@ -20,7 +20,7 @@ test:
   host: localhost
   username: postgres
   password: 123
-  database: develop_sample_app
+  database: test_sample_app
   pool: 5
   timeout: 5000
 
