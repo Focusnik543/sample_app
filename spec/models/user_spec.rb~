@@ -41,6 +41,10 @@ describe User do
 			specify { expect(user_for_invalid_password).to be_false }
 		end
 	end
+	describe "with a password that's too short" do
+  	before { @user.password = @user.password_confirmation = "a" * 5 }
+  	it { should be_invalid }
+	end
 	
   describe "when name is not present" do
   	before {@user.name=" "}
@@ -74,6 +78,15 @@ describe User do
   			@user.email=valid_address
   			expect(@user).to be_valid
   		end
+  	end
+  end
+  describe "email address with mixed case" do
+  	let(:mixed_case_email) {"Foo@ExAmpLE.COm"}
+  	
+  	it "should ba saved as all lower-case" do
+  		@user.email=mixed_case_email
+  		@user.save
+  		expect(@userreload.email).to eq mixed_case_email.downcase
   	end
   end
   describe "when email address is already taken" do
